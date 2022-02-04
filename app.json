@@ -1,0 +1,15 @@
+{
+  "name": "net-heroku-template",
+  "description": "Template heroku app on ASP.NET Core",
+  "repository": "https://github.com/dinavinter/net-heroku-template",
+  "keywords": ["aspnet", "core"],
+  "stack": "heroku-20",
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs"
+    },
+    {
+      "url": "https://github.com/jincod/dotnetcore-buildpack"
+    }
+  ]
+}
