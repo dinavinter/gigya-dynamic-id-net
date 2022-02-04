@@ -1,0 +1,49 @@
+@page
+@using Microsoft.Extensions.Primitives
+ 
+@{
+    Layout = null;
+    ViewData["Title"] = "OP Error Page";
+
+
+    string getError()
+    {
+      return  HttpContext.Request.Query["message"];
+    
+    } string getErrorCode()
+         {
+           return  HttpContext.Request.Query["code"];
+         
+         }
+    string getCallId()
+    {
+        return HttpContext.Response.Headers.ContainsKey("X-CallID") ? HttpContext.Response.Headers["X-CallID"] : new StringValues();
+    }
+
+}
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>OP Error Page | Sample</title>
+</head>
+<body>
+<p >
+    
+    <code>error code:</code>
+
+    @getErrorCode()
+    
+    <code>error:</code>
+    @getError()
+    
+    <code>call id:</code>
+    @getCallId()
+    
+</p>
+<
+</body>
+</html> 

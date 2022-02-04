@@ -1,0 +1,24 @@
+@page "{domain?}/{apikey?}"
+@using Gigya.Identity.Client.Models
+@inject GigyaOP op
+
+@{
+    Layout = null;
+    ViewData["Title"] = "OP Proxy Page";
+
+}
+
+
+<script src="@op.GigyaJS()"></script>
+<script src="@op.OidcJS()">
+        {
+            loginURL: '@Url.PageLink("login", "op")',
+            consentURL: '@Url.Action("consent", "op")',
+            errorURL: '@Url.PageLink("error")'
+        }
+</script>
+
+<header class="text-center" >
+    <h1 class="display-4">OP Proxy Page</h1>
+    @op?.ApiKey
+</header>

@@ -1,0 +1,43 @@
+@page
+
+@using Gigya.Identity.Client.Models
+@inject GigyaOP _op
+
+@{
+    Layout = null;
+    ViewData["Title"] = "OP Login Page";
+    //@RedirectToPage($"proxy/{RouteData.Domain()}/{RouteData.ApiKey()}?mode=afterLogin", routeValues:new{domain= RouteData.Domain(), apikey=RouteData.ApiKey()} )
+    // var proxyUrl = '@Url.Action("proxy", "op", values:new{domain= RouteData.Domain(), apikey=RouteData.ApiKey()},  Request.Scheme)' + '?mode=afterLogin';
+    // window.location.href = proxyUrl;
+
+}
+
+@Html.Hidden("afterLoginRedirect", @Url.PageLink("proxy"));
+
+<script src="@_op.GigyaJS()"></script>
+
+<script>
+        gigya.socialize.addEventHandlers({
+            onLogin: function () {
+            location.href =  '@Url.Action("proxy", "op")' + '?mode=afterLogin';
+
+             },
+            OnError: function (args) {
+                alert('OIDC LOGIN ERROR: ' + args.errorCode);
+            }
+        });
+
+        gigya.accounts.showScreenSet({
+            screenSet: 'Default-RegistrationLogin',
+            containerID: "container",
+            sessionExpiration: '3600'
+        });
+    </script>
+
+
+<div class="text-center">
+    <h1 class="display-4">Gigya Login Page</h1>
+    @_op?.ApiKey
+</div>
+
+<div id="container"></div>

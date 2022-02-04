@@ -4,6 +4,25 @@ VisualStudioVersion = 15.0.27130.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreDemoApp", "src\AspNetCoreDemoApp\AspNetCoreDemoApp.csproj", "{FA0CC66E-5D01-4557-8438-777D6F18DD75}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{11384C85-0039-43F8-B12A-DBB03779CB36}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	.env = .env
+	.gitattributes = .gitattributes
+	.gitignore = .gitignore
+	app.json = app.json
+	appveyor.yml = appveyor.yml
+	Dockerfile = Dockerfile
+	heroku.yml = heroku.yml
+	package.json = package.json
+	README.md = README.md
+	run.sh = run.sh
+	yarn.lock = yarn.lock
+	src\index.js = src\index.js
+	config-overrides.js = config-overrides.js
+	tsconfig.json = tsconfig.json
+EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

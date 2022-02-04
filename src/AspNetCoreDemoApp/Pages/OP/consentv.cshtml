@@ -1,0 +1,56 @@
+﻿@page
+@using Gigya.Identity.Client.Models
+@model dynamic
+@inject GigyaOP op
+
+
+@{
+    Layout = null;
+    ViewData["Title"] = "OIDC OP"; 
+}
+ 
+    <script src="https://cdns.@(op.DataCenter).gigya.com/js/gigya.js?apiKey=@(op.ApiKey)"></script>
+
+    <script>
+
+        function acceptConsent() {
+
+            var signature = '@Html.Raw(Model.consentSignature)';
+            var hashObject = JSON.parse('@Html.Raw(Model.consent)');
+
+            var proxyUrl = gigya.utils.URL.addParamsToURL('@Url.Action("proxy", "op", null, Request.Scheme)',
+                {
+                    mode: 'afterConsent',
+                    sig: signature,
+                    consent: hashObject,
+                    userKey: @Model.userKey
+                });
+
+            window.location.href = proxyUrl;
+        }
+
+    </script>
+ 
+
+<div class="text-center">
+    <h1 class="display-4">OP Consent Page</h1>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm">
+            <div class="card bg-light text-dark">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="mb-2">
+                                <button class="btn btn-primary" type="button" onclick="acceptConsent()">I accept</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
