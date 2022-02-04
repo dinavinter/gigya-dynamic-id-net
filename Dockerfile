@@ -7,13 +7,13 @@ RUN npm install --progress=true --loglevel=silent
 COPY src/client ./src/client/
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS builder
 WORKDIR /source
 COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Release -r linux-musl-x64 -o /app
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 WORKDIR /app
 COPY --from=builder /app .
 COPY --from=node /app/build ./wwwroot
