@@ -27,11 +27,21 @@
             }
         });
 
-        gigya.accounts.showScreenSet({
-            screenSet: 'Default-RegistrationLogin',
+
+        const token= gigya.getLoginToken();
+        if (token){        gigya.accounts.showScreenSet({
+            screenSet: 'Default-ReAuthentication',
             containerID: "container",
             sessionExpiration: '3600'
         });
+}
+        else{
+                  gigya.accounts.showScreenSet({
+                        screenSet: 'Default-RegistrationLogin',
+                        containerID: "container",
+                        sessionExpiration: '3600'
+                    });
+            }
     </script>
 
 

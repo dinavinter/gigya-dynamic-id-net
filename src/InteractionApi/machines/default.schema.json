@@ -1,0 +1,395 @@
+{
+  "id": "form",
+  "key": "form",
+  "type": "compound",
+  "initial": "start",
+  "history": false,
+  "states": {
+    "start": {
+      "id": "form.start",
+      "key": "start",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "LOAD": [
+          {
+            "target": [
+              "#form.load"
+            ],
+            "event": "LOAD",
+            "actions": [],
+            "source": "#form.start",
+            "internal": false,
+            "eventType": "LOAD"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.load"
+          ],
+          "event": "LOAD",
+          "actions": [],
+          "source": "#form.start",
+          "internal": false,
+          "eventType": "LOAD"
+        }
+      ],
+      "entry": [],
+      "exit": [],
+      "activities": [],
+      "order": 1,
+      "invoke": []
+    },
+    "load": {
+      "id": "form.load",
+      "key": "load",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "LOAD_SUCCESS": [
+          {
+            "target": [
+              "#form.form"
+            ],
+            "event": "LOAD_SUCCESS",
+            "actions": [],
+            "source": "#form.load",
+            "internal": false,
+            "eventType": "LOAD_SUCCESS"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.form"
+          ],
+          "event": "LOAD_SUCCESS",
+          "actions": [],
+          "source": "#form.load",
+          "internal": false,
+          "eventType": "LOAD_SUCCESS"
+        }
+      ],
+      "entry": [
+        {
+          "type": "enterLoading"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitLoading"
+        }
+      ],
+      "activities": [],
+      "order": 2,
+      "invoke": []
+    },
+    "form": {
+      "id": "form.form",
+      "key": "form",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "SUBMIT": [
+          {
+            "target": [
+              "#form.submitting"
+            ],
+            "event": "SUBMIT",
+            "actions": [],
+            "source": "#form.form",
+            "internal": false,
+            "eventType": "SUBMIT"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.submitting"
+          ],
+          "event": "SUBMIT",
+          "actions": [],
+          "source": "#form.form",
+          "internal": false,
+          "eventType": "SUBMIT"
+        }
+      ],
+      "entry": [
+        {
+          "type": "enterForm"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitForm"
+        }
+      ],
+      "activities": [],
+      "order": 3,
+      "invoke": []
+    },
+    "submitting": {
+      "id": "form.submitting",
+      "key": "submitting",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "SUCCESS": [
+          {
+            "target": [
+              "#form.success"
+            ],
+            "event": "SUCCESS",
+            "actions": [],
+            "source": "#form.submitting",
+            "internal": false,
+            "eventType": "SUCCESS"
+          }
+        ],
+        "FAILURE": [
+          {
+            "target": [
+              "#form.error"
+            ],
+            "event": "FAILURE",
+            "actions": [],
+            "source": "#form.submitting",
+            "internal": false,
+            "eventType": "FAILURE"
+          }
+        ],
+        "INTERRUPT": [
+          {
+            "target": [
+              "#form.interruption"
+            ],
+            "event": "INTERRUPT",
+            "actions": [],
+            "source": "#form.submitting",
+            "internal": false,
+            "eventType": "INTERRUPT"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.success"
+          ],
+          "event": "SUCCESS",
+          "actions": [],
+          "source": "#form.submitting",
+          "internal": false,
+          "eventType": "SUCCESS"
+        },
+        {
+          "target": [
+            "#form.error"
+          ],
+          "event": "FAILURE",
+          "actions": [],
+          "source": "#form.submitting",
+          "internal": false,
+          "eventType": "FAILURE"
+        },
+        {
+          "target": [
+            "#form.interruption"
+          ],
+          "event": "INTERRUPT",
+          "actions": [],
+          "source": "#form.submitting",
+          "internal": false,
+          "eventType": "INTERRUPT"
+        }
+      ],
+      "entry": [
+        {
+          "type": "enterSubmitting"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitSubmitting"
+        }
+      ],
+      "activities": [],
+      "order": 4,
+      "invoke": []
+    },
+    "interruption": {
+      "id": "form.interruption",
+      "key": "interruption",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "SUCCESS": [
+          {
+            "target": [
+              "#form.success"
+            ],
+            "event": "SUCCESS",
+            "actions": [],
+            "source": "#form.interruption",
+            "internal": false,
+            "eventType": "SUCCESS"
+          }
+        ],
+        "FAILURE": [
+          {
+            "target": [
+              "#form.error"
+            ],
+            "event": "FAILURE",
+            "actions": [],
+            "source": "#form.interruption",
+            "internal": false,
+            "eventType": "FAILURE"
+          }
+        ],
+        "INTERRUPT": [
+          {
+            "target": [
+              "#form.interruption"
+            ],
+            "event": "INTERRUPT",
+            "actions": [],
+            "source": "#form.interruption",
+            "internal": false,
+            "eventType": "INTERRUPT"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.success"
+          ],
+          "event": "SUCCESS",
+          "actions": [],
+          "source": "#form.interruption",
+          "internal": false,
+          "eventType": "SUCCESS"
+        },
+        {
+          "target": [
+            "#form.error"
+          ],
+          "event": "FAILURE",
+          "actions": [],
+          "source": "#form.interruption",
+          "internal": false,
+          "eventType": "FAILURE"
+        },
+        {
+          "target": [
+            "#form.interruption"
+          ],
+          "event": "INTERRUPT",
+          "actions": [],
+          "source": "#form.interruption",
+          "internal": false,
+          "eventType": "INTERRUPT"
+        }
+      ],
+      "entry": [
+        {
+          "type": "enterInterruption"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitInterruption"
+        }
+      ],
+      "activities": [],
+      "order": 5,
+      "invoke": []
+    },
+    "success": {
+      "id": "form.success",
+      "key": "success",
+      "type": "final",
+      "history": false,
+      "states": {},
+      "on": {},
+      "transitions": [],
+      "entry": [
+        {
+          "type": "enterSuccess"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitSuccess"
+        }
+      ],
+      "activities": [],
+      "order": 6,
+      "data": {},
+      "invoke": []
+    },
+    "error": {
+      "id": "form.error",
+      "key": "error",
+      "type": "atomic",
+      "history": false,
+      "states": {},
+      "on": {
+        "SUBMIT": [
+          {
+            "target": [
+              "#form.submitting"
+            ],
+            "event": "SUBMIT",
+            "actions": [],
+            "source": "#form.error",
+            "internal": false,
+            "eventType": "SUBMIT"
+          }
+        ]
+      },
+      "transitions": [
+        {
+          "target": [
+            "#form.submitting"
+          ],
+          "event": "SUBMIT",
+          "actions": [],
+          "source": "#form.error",
+          "internal": false,
+          "eventType": "SUBMIT"
+        }
+      ],
+      "entry": [
+        {
+          "type": "enterError"
+        }
+      ],
+      "exit": [
+        {
+          "type": "exitError"
+        }
+      ],
+      "activities": [],
+      "order": 7,
+      "invoke": []
+    }
+  },
+  "on": {},
+  "transitions": [],
+  "entry": [],
+  "exit": [],
+  "activities": [],
+  "order": -1,
+  "invoke": []
+}

@@ -34,7 +34,7 @@ import withBasePath from "../publicPath";
 const configuration = {
   client_id: GigyaOidcClient.ClientId,
   client_secret: GigyaOidcClient.ClientSecret,
-  redirect_uri: withBasePath('authentication/callback'),
+  redirect_uri:withBasePath('authentication/callback'),
   response_type: 'code',
   post_logout_redirect_uri: withBasePath(''),
   scope: 'openid profile email api offline_access',

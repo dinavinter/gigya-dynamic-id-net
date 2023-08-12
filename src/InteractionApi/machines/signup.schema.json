@@ -1,0 +1,143 @@
+{
+  "definitions": {
+    "identity": {
+      "email": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "x-collector.schema": "email",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ]
+      },
+      "phone": {
+        "type": "object",
+        "properties": {
+          "phonenumber": {
+            "x-collector.schema": "phonenumber",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phonenumber"
+        ]
+      }
+    } ,
+    "communication": {      
+      "newsletter": {
+        "email": {
+          "allOf": [
+            {
+              "properties": {
+                "newsletter:email": {
+                  "x-collector.schema": "newsletter",
+                  "title": "Newsletter",
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        "sms": {
+          "allOf": [
+            {
+              "properties": {
+                "newsletter:sms": {
+                  "x-collector.schema": "newsletter",
+                  "title": "Newsletter",
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "channel": {
+      "x-collector.schema": "channel",
+      "type": "string",
+      "description": "Specifies user's preferred channel.",
+      "default": "email",
+      "enum": [
+        "email",
+        "sms"
+      ]
+    },
+    "identity": {
+      "description": "Specifies user's identity.",
+      "$ref": "#/definitions/identity"
+    },
+    "communication": {
+      "description": "Specifies communication properties filtered by  channel.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/communication/newsletter/sms"
+        },{
+          "$ref": "#/definitions/communication/newsletter/email"
+        }
+      ]
+    }
+
+  },
+  "dependencies": {
+    "channel": {
+      "oneOf": [
+        {
+          "properties": {
+            "channel": {
+              "type": "string",
+              "const": "email"
+            },
+            "identity": {
+              "description": "Specifies user's identity.",
+              "$ref": "#/definitions/identity/email"
+            },
+            "communication": {
+              "description": "Specifies communication properties, filtered by email channel.",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/communication/newsletter/email"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "properties": {
+            "channel": {
+              "type": "string",
+              "const": "sms"
+            },
+            "identity": {
+              "description": "Specifies user's identity.",
+              "$ref": "#/definitions/identity/phone"
+            },
+            "communication": {
+              "description": "Specifies communication properties, filtered by sms channel.",
+              "propertyNames": {
+                "pattern": ".*:sms"
+              },
+              "allOf": [
+                {
+                  "$ref": "#/definitions/communication/newsletter/sms"
+                  
+                },
+                {
+                  "$ref": "#/definitions/communication/newsletter/email"
+
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+

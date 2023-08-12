@@ -31,13 +31,13 @@ public static class ServiceCollectionExtensions
     public static HttpClientOptions AddClientAccessTokenHandler(this HttpClientOptions httpClientOptions,
         string tokenClientName = AccessTokenManagementDefaults.DefaultTokenClientName)
     {
-        httpClientOptions.AddHandler<ClientAccessTokenHandler>((provider, options) =>
+        httpClientOptions.AddHandler((provider, options) =>
         {
             var accessTokenManagementService = provider.GetRequiredService<IClientAccessTokenManagementService>();
 
             return new ClientAccessTokenHandler(accessTokenManagementService, tokenClientName);
         });
-        httpClientOptions.AddHandler<HttpDebugLoggerHandler>((sp,options) => new HttpDebugLoggerHandler(sp.GetRequiredService<ILogger<HttpDebugLoggerHandler>>()));
+        httpClientOptions.AddHandler((sp,options) => new HttpDebugLoggerHandler(sp.GetRequiredService<ILogger<HttpDebugLoggerHandler>>()));
         return httpClientOptions;
     }
 
@@ -131,62 +131,18 @@ public static class ServiceCollectionExtensions
         serviceCollection.AddScoped<GigyaAPIHttpClientConfigurator>();
         serviceCollection.AddScoped<GigyaDsAPIHttpClientConfigurator>();
 
-        serviceCollection.AddOptions<DsOptions>()
-            .Configure(configureDs ?? (_ => { }));
+        serviceCollection.AddOptions<DsOptions>().Configure(configureDs ?? (_ => { }));
         serviceCollection.ConfigureOptions<DsOptionsOptionsConfigure>();
 
-        serviceCollection.AddOptions<GigyaOptions>()
-            .Configure(configureGigya ?? (_ => { }));
+        serviceCollection.AddOptions<GigyaOptions>().Configure(configureGigya ?? (_ => { }));
         serviceCollection.ConfigureAll<GigyaOptions>(options =>
         {
             options.Site = GigyaSite.Test;
             options.Creds = GigyaCreds.Test;
             ;
         });
-        // serviceCollection.AddClientAccessTokenManagement();
         serviceCollection.AddOptions<StoreOptions>();
-//         var name = "ds";
-// serviceCollection.AddAccessTokenManagement((services, clientAccessOptions) =>
-// {
-//               var gigyaOptions = services.GetRequiredService<IOptionsMonitor<GigyaOptions>>();
-//             clientAccessOptions.Client.Clients.Add($"{name}-idp", new ClientCredentialsTokenRequest
-//             {
-//                 Address = gigyaOptions.Get(name).OAuthSettings.Token,
-//                 ClientId = gigyaOptions.Get(name).OAuthSettings.ClientId,
-//                 ClientSecret = gigyaOptions.Get(name).OAuthSettings.ClientSecret,
-//                 Scope = "api",
-//                 GrantType = "none"
-//             });
-//
-//             Console.Out.WriteLine("idp name: " + name);
-//             Console.Out.WriteLine("token: " + gigyaOptions.Get(name).OAuthSettings.Token);
-//         });
-//
-// serviceCollection.AddHttpClient(name)
-//     .ConfigureHttpClient((sp, client) =>
-//     {
-//         var gigyaOptions = sp.GetRequiredService<IOptionsMonitor<GigyaOptions>>();
-//
-//         client.BaseAddress= new Uri(gigyaOptions.Get(name).Api.ds.Domain());
-//
-//     } )                .AddClientAccessTokenHandler($"{name}-idp");
 
-
-// serviceCollection.AddHttpClientOptions((serviceName, clientOptions) =>
-// {
-//     Console.Out.WriteLine("serviceName: " + serviceName);
-//
-//     if (serviceName != $"{name}-idp")
-//     {
-//         clientOptions.ServiceName = serviceName;
-//         clientOptions.Connection.Server = gigyaOptions.Get(serviceName).Api.ds.Domain();
-//         clientOptions.Connection.Schema = "https";
-//         clientOptions.AddClientAccessTokenHandler($"{name}-idp");
-//         Console.Out.WriteLine("name: " + name);
-//         Console.Out.WriteLine("domain: " + gigyaOptions.Get(name).Api.ds.Domain());
-//         Console.Out.WriteLine("api: " + gigyaOptions.Get(name).Site.ApiKey);
-//     }
-// });
         var name = "ds";
         serviceCollection.AddAccessTokenManagement((services, clientAccessOptions) =>
         {
@@ -194,9 +150,6 @@ public static class ServiceCollectionExtensions
             clientAccessOptions.Client.Clients.Add($"{name}-idp", new ClientCredentialsTokenRequest
             {
                 Address = gigyaOptions.Get(name).OAuthSettings.Token,
-                // ClientId = gigyaOptions.Get(name).OAuthSettings.ClientId,
-                // ClientSecret = gigyaOptions.Get(name).OAuthSettings.ClientSecret,
-                // AuthorizationHeaderStyle = BasicAuthenticationHeaderStyle.Rfc2617,
                 Parameters = new Parameters(new KeyValuePair<string, string>[]
                 {
                     new("apiKey", gigyaOptions.Get(name).Site.ApiKey),
@@ -204,13 +157,9 @@ public static class ServiceCollectionExtensions
                     new("secret", gigyaOptions.Get(name).Creds.Secret),
                 }),
                 Scope = "api",
-                GrantType = "none",
-
-
+                GrantType = "none"
             });
 
-            Console.Out.WriteLine("idp name: " + name);
-            Console.Out.WriteLine("token: " + gigyaOptions.Get(name).OAuthSettings.Token);
         });
 
 
@@ -221,23 +170,8 @@ public static class ServiceCollectionExtensions
             {
                 var changeTokenSource = builder.ConfigureOptionsBuilder(options =>
                     {
-                        // options.Services.AddAccessTokenManagement();
-                        // options.Services.AddAccessTokenManagement((services, clientAccessOptions) =>
-                        // {
-                        //     clientAccessOptions.Client.Clients.Add($"{name}-idp", new ClientCredentialsTokenRequest
-                        //     {
-                        //         Address = gigyaOptions.Get(name).OAuthSettings.Token,
-                        //         ClientId = gigyaOptions.Get(name).OAuthSettings.ClientId,
-                        //         ClientSecret = gigyaOptions.Get(name).OAuthSettings.ClientSecret,
-                        //         Scope = "api",
-                        //         GrantType = "none"
-                        //     });
-                        //
-                        //     Console.Out.WriteLine("idp name: " + name);
-                        //     Console.Out.WriteLine("token: " + gigyaOptions.Get(name).OAuthSettings.Token);
-                        // });
-                        options.Services.AddSingleton((_) =>
-                            sp.GetRequiredService<IClientAccessTokenManagementService>());
+
+                        options.Services.AddSingleton((_) => sp.GetRequiredService<IClientAccessTokenManagementService>());
                         options.Services.AddSingleton((_) => sp.GetRequiredService<IOptionsMonitor<GigyaOptions>>());
 
 
@@ -259,8 +193,7 @@ public static class ServiceCollectionExtensions
 
                         serviceCollection.AddSingleton((_) => sp.GetRequiredService<IOptionsMonitor<DsOptions>>());
 
-                        // serviceCollection.AddScoped<IConfigureNamedOptions<HttpClientOptions>, GigyaAPIHttpClientConfigurator>();
-                    }
+                     }
                 );
 
 

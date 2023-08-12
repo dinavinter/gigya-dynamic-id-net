@@ -23,6 +23,14 @@ ProjectSection(SolutionItems) = preProject
 	tsconfig.json = tsconfig.json
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSStore", "DSStore\DSStore.csproj", "{57E96F1C-2473-4337-8421-C5C77AD32F49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryJsonEverything", "src\TryJsonEverything\TryJsonEverything.csproj", "{BCBDCA15-2827-40CE-8777-BDDEAAACB9D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InteractionApi", "src\InteractionApi\InteractionApi.csproj", "{BFD9C7F6-3206-45CD-BB9B-409DB6DCF85E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigyaId-React", "GigyaId-React\GigyaId-React.csproj", "{AF1E8543-BA7B-4250-958F-18F30CD64442}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,22 @@ Global
 		{FA0CC66E-5D01-4557-8438-777D6F18DD75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA0CC66E-5D01-4557-8438-777D6F18DD75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA0CC66E-5D01-4557-8438-777D6F18DD75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57E96F1C-2473-4337-8421-C5C77AD32F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57E96F1C-2473-4337-8421-C5C77AD32F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57E96F1C-2473-4337-8421-C5C77AD32F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57E96F1C-2473-4337-8421-C5C77AD32F49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCBDCA15-2827-40CE-8777-BDDEAAACB9D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCBDCA15-2827-40CE-8777-BDDEAAACB9D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCBDCA15-2827-40CE-8777-BDDEAAACB9D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCBDCA15-2827-40CE-8777-BDDEAAACB9D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFD9C7F6-3206-45CD-BB9B-409DB6DCF85E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD9C7F6-3206-45CD-BB9B-409DB6DCF85E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFD9C7F6-3206-45CD-BB9B-409DB6DCF85E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD9C7F6-3206-45CD-BB9B-409DB6DCF85E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF1E8543-BA7B-4250-958F-18F30CD64442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF1E8543-BA7B-4250-958F-18F30CD64442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF1E8543-BA7B-4250-958F-18F30CD64442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF1E8543-BA7B-4250-958F-18F30CD64442}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
