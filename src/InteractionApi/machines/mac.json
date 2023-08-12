@@ -1,0 +1,69 @@
+{
+  "id": "root",
+  "states": {
+    "idle": {
+      "id": "idle",
+      "states": {},
+      "on": {
+        "input": "#validation"
+      }
+    },
+    "validation": {
+      "id": "validation",
+      "states": {},
+      "on": {
+        "ok": "#registration",
+        "validation_error": "#validation_error",
+        "verification": "#verification"
+      }
+    },
+    "validation_error": {
+      "id": "validation_error",
+      "states": {},
+      "on": {
+        "input": "#validation"
+      }
+    },
+    "verification": {
+      "id": "verification",
+      "states": {},
+      "on": {
+        "timeout": "#error",
+        "verified": "#validation"
+      }
+    },
+    "registration": {
+      "id": "registration",
+      "states": {
+        "creation": {
+          "id": "creation",
+          "states": {},
+          "on": {
+            "done": "#update",
+            "error": "#error"
+          }
+        },
+        "update": {
+          "id": "update",
+          "states": {},
+          "on": {
+            "done": "#done",
+            "error": "#error"
+          }
+        }
+      },
+      "initial": "creation",
+      "on": {}
+    },
+    "done": {
+      "id": "done",
+      "states": {}
+    },
+    "error": {
+      "id": "error",
+      "states": {}
+    }
+  },
+  "initial": "idle",
+  "on": {}
+}
